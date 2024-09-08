@@ -1,7 +1,7 @@
 # Instagram
 
 ```bash
-composer require socialiteproviders/instagram
+composer require janyksteenbeek/socialite-instagram-business
 ```
 
 ## Installation & Basic Usage
@@ -11,7 +11,7 @@ Please see the [Base Installation Guide](https://socialiteproviders.com/usage/),
 ### Add configuration to `config/services.php`
 
 ```php
-'instagram' => [    
+'instagram-business' => [    
   'client_id' => env('INSTAGRAM_CLIENT_ID'),  
   'client_secret' => env('INSTAGRAM_CLIENT_SECRET'),  
   'redirect' => env('INSTAGRAM_REDIRECT_URI') 
@@ -28,7 +28,7 @@ In Laravel 11, the default `EventServiceProvider` provider was removed. Instead,
 
 ```php
 Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
-    $event->extendSocialite('instagram', \SocialiteProviders\Instagram\Provider::class);
+    $event->extendSocialite('instagram-business', \SocialiteProviders\Instagram\Provider::class);
 });
 ```
 <details>
@@ -43,7 +43,7 @@ Add the event to your `listen[]` array in `app/Providers/EventServiceProvider`. 
 protected $listen = [
     \SocialiteProviders\Manager\SocialiteWasCalled::class => [
         // ... other providers
-        \SocialiteProviders\Instagram\InstagramExtendSocialite::class.'@handle',
+        \JanykSteenbeek\SocialiteInstagramBusiness\Listeners\InstagramExtendSocialite::class.'@handle',
     ],
 ];
 ```

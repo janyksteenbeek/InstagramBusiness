@@ -1,12 +1,12 @@
 <?php
 
-namespace JanykSteenbeek\SocialiteInstagramBusiness;
+namespace JanykSteenbeek\SocialiteInstagramBusiness\Two;
 
 use GuzzleHttp\RequestOptions;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
 use SocialiteProviders\Manager\OAuth2\User;
 
-class Provider extends AbstractProvider
+class InstagramBusinessProvider extends AbstractProvider
 {
     /**
      * Unique Provider Identifier.
