@@ -1,4 +1,6 @@
-# Instagram
+# Instagram Business provider for Laravel Socialite
+
+https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login
 
 ```bash
 composer require janyksteenbeek/socialite-instagram-business
@@ -28,7 +30,7 @@ In Laravel 11, the default `EventServiceProvider` provider was removed. Instead,
 
 ```php
 Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
-    $event->extendSocialite('instagram-business', \SocialiteProviders\Instagram\Provider::class);
+    $event->extendSocialite('instagram-business', \JanykSteenbeek\SocialiteInstagramBusiness\Two\InstagramBusinessProvider::class);
 });
 ```
 <details>
@@ -54,12 +56,16 @@ protected $listen = [
 You should now be able to use the provider like you would regularly use Socialite (assuming you have the facade installed):
 
 ```php
-return Socialite::driver('instagram')->redirect();
+return Socialite::driver('instagram-business')->redirect();
 ```
 
 ### Returned User fields
+- `id`
+- `nickname` (Instagram username)
+- `name`
+- `account_type`
+- `media_count`
+- `followers_count`
+- `follows_count`
+- `avatar` (URL to profile picture)
 
-- ``id``
-- ``username``
-- ``account_type``
-- ``media_count``
