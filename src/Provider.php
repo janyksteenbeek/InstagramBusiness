@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialiteProviders\Instagram;
+namespace JanykSteenbeek\SocialiteInstagramBusiness;
 
 use GuzzleHttp\RequestOptions;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
@@ -11,7 +11,7 @@ class Provider extends AbstractProvider
     /**
      * Unique Provider Identifier.
      */
-    public const IDENTIFIER = 'INSTAGRAM';
+    public const IDENTIFIER = 'INSTAGRAM_BUSINESS';
 
     /**
      * {@inheritdoc}
@@ -23,12 +23,14 @@ class Provider extends AbstractProvider
      *
      * @var array
      */
-    protected $fields = ['account_type', 'id', 'username', 'media_count'];
+    protected $fields = ['account_type', 'id', 'user_id', 'username', 'name',
+        'account_type', 'profile_picture_url', 'followers_count',
+        'follows_count', 'media_count'];
 
     /**
      * {@inheritdoc}
      */
-    protected $scopes = ['user_profile'];
+    protected $scopes = ['business_basic'];
 
     /**
      * {@inheritdoc}
@@ -36,7 +38,7 @@ class Provider extends AbstractProvider
     protected function getAuthUrl($state)
     {
         return $this->buildAuthUrlFromBase(
-            'https://api.instagram.com/oauth/authorize',
+            'https://www.instagram.com/oauth/authorize',
             $state
         );
     }
@@ -56,14 +58,14 @@ class Provider extends AbstractProvider
     {
         $queryParameters = [
             'access_token' => $token,
-            'fields'       => implode(',', $this->fields),
+            'fields' => implode(',', $this->fields),
         ];
 
         if (! empty($this->clientSecret)) {
             $queryParameters['appsecret_proof'] = hash_hmac('sha256', $token, $this->clientSecret);
         }
 
-        $response = $this->getHttpClient()->get('https://graph.instagram.com/me', [
+        $response = $this->getHttpClient()->get('https://graph.instagram.com/v20.0/me', [
             RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
             ],
@@ -79,10 +81,14 @@ class Provider extends AbstractProvider
     protected function mapUserToObject(array $user)
     {
         return (new User)->setRaw($user)->map([
-            'id'            => $user['id'],
-            'name'          => $user['username'],
-            'account_type'  => $user['account_type'],
-            'media_count'   => $user['media_count'] ?? null,
+            'id' => $user['user_id'],
+            'nickname' => $user['username'],
+            'name' => $user['name'],
+            'account_type' => $user['account_type'],
+            'media_count' => $user['media_count'] ?? null,
+            'followers_count' => $user['followers_count'] ?? null,
+            'follows_count' => $user['follows_count'] ?? null,
+            'avatar' => $user['profile_picture_url'] ?? null,
         ]);
     }
 

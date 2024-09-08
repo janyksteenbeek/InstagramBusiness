@@ -1,6 +1,6 @@
 {
-    "name": "socialiteproviders/instagram",
-    "description": "Instagram OAuth2 Provider for Laravel Socialite",
+    "name": "janyksteenbeek/socialite-instagram-business",
+    "description": "Instagram Business Login OAuth2 Provider for Laravel Socialite",
     "license": "MIT",
     "keywords": [
         "instagram",
@@ -11,15 +11,10 @@
     ],
     "authors": [
         {
-            "name": "Brian Faust",
-            "email": "hello@brianfaust.de"
+            "name": "Janyk Steenbeek",
+            "email": "me@janyk.dev"
         }
     ],
-    "support": {
-        "issues": "https://github.com/socialiteproviders/providers/issues",
-        "source": "https://github.com/socialiteproviders/providers",
-        "docs": "https://socialiteproviders.com/instagram"
-    },
     "require": {
         "php": "^8.0",
         "ext-json": "*",
@@ -27,7 +22,10 @@
     },
     "autoload": {
         "psr-4": {
-            "SocialiteProviders\\Instagram\\": ""
+            "JanykSteenbeek\\SocialiteInstagramBusiness\\": "src"
         }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.17"
     }
 }
